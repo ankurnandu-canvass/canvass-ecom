@@ -1,0 +1,29 @@
+<!-- FireCart Initialization START -->
+    <script type='text/javascript'>
+    (function(){    
+    function _init(){        
+        firecartWebAPI.init("<ACCESS-KEY>").ready(function(){
+            var ME = this;
+            {% if customer %}
+            var cust = {
+                'name':'{{ customer.name }}',
+                'email':'{{ customer.email }}',
+                'mobile':'{{ customer.default_address.phone }}',
+                'city':'{{ customer.default_address.city }}',
+                'country':'{{ customer.default_address.country }}',
+                'pincode':'{{ customer.default_address.zip }}'
+            };
+            ME.setUser(cust);
+            {% endif%}
+        });
+    }
+    if(window.firecartWebAPI){
+        _init();
+    }else{
+        window.addEventListener('firecart-loaded',function(){
+            _init();
+        });
+    }    
+})();
+    </script>
+    

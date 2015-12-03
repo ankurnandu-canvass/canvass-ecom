@@ -1,0 +1,33 @@
+<!-- Fire Cart Purchase Tracking Code -- START -->
+    <script type="text/javascript">
+    (function(){
+    function _init(){
+        canvassWebAPI.init("<ACCESS-KEY>").ready(function(){
+            var ME = this;    
+            var purchase = {
+                email: '{{ order.customer.email }}',
+                purchaseAmount: {{ order.total_price }}/100
+            }
+            var items = [];
+            {% for item in order.line_items %}
+            items.push({
+                image:"{{ item.image }}",
+                name:"{{ item.title }}",
+                url:"{{ item.url }}"
+            });
+            {% endfor %}
+            purchase.items = items;
+            ME.trackPurchase(purchase);
+            console.log(purchase);    
+        });   
+    }
+    if(window.firecartWebAPI){
+        _init();
+    }else{
+        window.addEventListener('firecart-loaded',function(){
+            _init();
+        });
+    }
+})();
+    </script>
+    <!-- Fire Cart Purchase Tracking Code -- END -->
