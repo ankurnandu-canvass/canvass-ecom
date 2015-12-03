@@ -5,7 +5,7 @@
 
     <groupId>canvass</groupId>
     <artifactId>shopify-j</artifactId>
-    <version>1.0-d.1</version>
+    <version>1.0-d.2</version>
     <packaging>jar</packaging>
 
     <name>shopify-j</name>
