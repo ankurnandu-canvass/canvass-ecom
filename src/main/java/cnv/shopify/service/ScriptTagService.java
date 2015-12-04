@@ -59,7 +59,4 @@ public class ScriptTagService extends ShopifyBaseService {
         execute(build);
         return null;
     }
-
-    public static void main(String[] args) {
-    }
 }

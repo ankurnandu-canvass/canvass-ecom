@@ -37,10 +37,4 @@ public class ShopifyResponseParser {
     public static ShopifyResponseParser parser() {
         return parser;
     }
-
-    public static void main(String[] args) throws ParseException {
-        String s = "2015-10-19T05:34:29-04:00";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd'T'hh:MM:ss");
-        System.out.println(sdf.parse(s));
-    }
 }

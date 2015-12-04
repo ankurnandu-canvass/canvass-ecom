@@ -44,7 +44,4 @@ public class CustomerService extends ShopifyBaseService {
         HashMap<String, List<Customer>> parse = ShopifyResponseParser.parser().parse(execute(build), type);
         return parse != null && parse.get("customers") != null ? parse.get("customers") : null;
     }
-
-    public static void main(String[] args) {
-    }
 }
