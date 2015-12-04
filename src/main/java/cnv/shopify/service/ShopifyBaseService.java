@@ -19,7 +19,6 @@ import org.apache.http.impl.client.HttpClientBuilder;
  */
 public class ShopifyBaseService {
 
-    public static final boolean debug = true;
     protected ShopifyClient client;
     protected String baseUrl;
 
@@ -36,6 +35,7 @@ public class ShopifyBaseService {
     }
 
     protected String execute(HttpUriRequest request) throws IOException {
+        boolean debug = client.isDebugEnabled();
         StringBuilder buff = new StringBuilder();
         // setting the access token IFF the credentials has it 
         if (client.getCredentials().hasAccessToken()) {
@@ -48,14 +48,16 @@ public class ShopifyBaseService {
             HttpEntity entity = response.getEntity();
             Scanner in = new Scanner(entity.getContent());
             if (debug) {
-                System.out.println("Status Code: " + request.getRequestLine());
+                System.out.println("Status Line: " + request.getRequestLine());
                 System.out.println("Status Code: " + response.getStatusLine());
             }
             while (in.hasNext()) {
                 String line = in.nextLine();
                 buff.append(line);
             }
-            //System.out.println(buff.toString());
+            if (debug) {
+                System.out.println(buff.toString());
+            }
         } catch (Exception e) {
         } finally {
             httpClient.close();

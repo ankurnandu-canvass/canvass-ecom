@@ -24,6 +24,19 @@ public class ShopifyClient {
     private HashMap<Class, ShopifyBaseService> services;
     private ShopifyCredentials creds;
     String baseUrl;
+    private boolean debug = false;
+
+    public void enableDebug() {
+        debug = true;
+    }
+
+    public void disableDebug() {
+        debug = false;
+    }
+
+    public boolean isDebugEnabled() {
+        return debug;
+    }
 
     public ShopifyClient(ShopifyCredentials credentails) {
         this.creds = credentails;
