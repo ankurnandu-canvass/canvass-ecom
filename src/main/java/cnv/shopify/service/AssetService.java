@@ -5,14 +5,14 @@
 package cnv.shopify.service;
 
 import cnv.shopify.ShopifyResponseParser;
+import cnv.shopify.ShopifyUtil;
 import cnv.shopify.modal.Asset;
-import com.google.gson.Gson;
+
 import java.io.IOException;
 import java.util.HashMap;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.entity.StringEntity;
-
 /**
  *
  * @author Naga Srinivas @Canvass
@@ -34,7 +34,7 @@ public class AssetService extends ShopifyBaseService {
         String path = "/admin/themes/" + themeId + "/assets.json";
         HttpUriRequest build = RequestBuilder.put().setUri(baseUrl + path).
                 setHeader("Content-Type", "application/json").
-                setEntity(new StringEntity(new Gson().toJson(wraper))).
+                setEntity(new StringEntity(ShopifyUtil.getGson().toJson(wraper))).
                 build();
         execute(build);
         return null;
@@ -49,7 +49,7 @@ public class AssetService extends ShopifyBaseService {
         String path = "/admin/themes/" + themeId + "/assets.json";
         HttpUriRequest build = RequestBuilder.put().setUri(baseUrl + path).
                 setHeader("Content-Type", "application/json").
-                setEntity(new StringEntity(new Gson().toJson(map))).
+                setEntity(new StringEntity(ShopifyUtil.getGson().toJson(map))).
                 build();
         execute(build);
         return null;
@@ -64,7 +64,7 @@ public class AssetService extends ShopifyBaseService {
         String path = "/admin/themes/" + themeId + "/assets.json";
         HttpUriRequest build = RequestBuilder.put().setUri(baseUrl + path).
                 setHeader("Content-Type", "application/json").
-                setEntity(new StringEntity(new Gson().toJson(map))).
+                setEntity(new StringEntity(ShopifyUtil.getGson().toJson(map))).
                 build();
         execute(build);
         return null;

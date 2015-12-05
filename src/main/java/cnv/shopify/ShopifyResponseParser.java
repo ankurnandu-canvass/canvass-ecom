@@ -20,8 +20,7 @@ public class ShopifyResponseParser {
     private Gson gson;
 
     private ShopifyResponseParser() {
-        gson = new GsonBuilder().setDateFormat("yyyy-mm-dd'T'hh:MM:ss").
-                create();
+        gson = ShopifyUtil.getGson();
     }
 
     public <T> T parse(String json, Class<T> cls) throws Exception {

@@ -5,8 +5,8 @@
 package cnv.shopify.service;
 
 import cnv.shopify.ShopifyResponseParser;
+import cnv.shopify.ShopifyUtil;
 import cnv.shopify.modal.ScriptTag;
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -15,7 +15,6 @@ import java.util.List;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.entity.StringEntity;
-
 /**
  *
  * @author Naga Srinivas @Canvass
@@ -29,7 +28,7 @@ public class ScriptTagService extends ShopifyBaseService {
         map.put("script_tag", tag);
         HttpUriRequest build = RequestBuilder.post().setUri(baseUrl + path).
                 setHeader("Content-Type", "application/json").
-                setEntity(new StringEntity(new Gson().toJson(map))).
+                setEntity(new StringEntity(ShopifyUtil.getGson().toJson(map))).
                 build();
         execute(build);
         return null;

@@ -7,6 +7,7 @@ package cnv.shopify;
 import cnv.shopify.modal.ShopifyCredentials;
 import cnv.shopify.service.*;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.util.HashMap;
 import java.util.Scanner;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -112,4 +113,5 @@ public class ShopifyClient {
         }
         return accessToken;
     }
+    
 }

@@ -5,8 +5,8 @@
 package cnv.shopify.service;
 
 import cnv.shopify.ShopifyResponseParser;
+import cnv.shopify.ShopifyUtil;
 import cnv.shopify.modal.Webhook;
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -14,7 +14,6 @@ import java.util.List;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.entity.StringEntity;
-
 /**
  *
  * @author Naga Srinivas @Canvass
@@ -39,7 +38,7 @@ public class WebhookService extends ShopifyBaseService {
         String path = "/admin/webhooks.json";
         HttpUriRequest build = RequestBuilder.post().setUri(baseUrl + path).
                 setHeader("Content-Type", "application/json").
-                setEntity(new StringEntity(new Gson().toJson(ww))).
+                setEntity(new StringEntity(ShopifyUtil.getGson().toJson(ww))).
                 build();
         Webhook hook = ShopifyResponseParser.parser().parse(execute(build), Webhook.WebhookWraper.class).getWebhook();
         return hook;
