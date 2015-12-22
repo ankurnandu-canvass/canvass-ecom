@@ -7,9 +7,18 @@ package cnv.shopify;
 import cnv.shopify.modal.ShopifyCredentials;
 import cnv.shopify.service.*;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import java.security.InvalidKeyException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
+import java.util.SortedMap;
+import java.util.TreeMap;
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+import org.apache.commons.codec.binary.Hex;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
@@ -113,5 +122,49 @@ public class ShopifyClient {
         }
         return accessToken;
     }
-    
+
+    /**
+     * This method will check the given parameters map is valid or not using the
+     * Shopify validation
+     *
+     * https://docs.shopify.com/api/authentication/oauth
+     */
+    public static boolean isValidRequest(Map<String, String> map, String secret) throws NoSuchAlgorithmException, InvalidKeyException {
+        SortedMap<String, String> sortedMap;
+
+        if (map instanceof SortedMap) {
+            sortedMap = (SortedMap<String, String>) map;
+        } else {// if the map is not a sorteed map then convertin to sorted map
+            sortedMap = new TreeMap<String, String>();
+            for (String key : map.keySet()) {
+                sortedMap.put(key, map.get(key));
+            }
+        }
+        // Now removing the hmac and signature keys from the map
+        String hmac = sortedMap.remove("hmac");
+        String signature = sortedMap.remove("signature");
+
+        StringBuilder sb = new StringBuilder();
+        for (Entry<String, String> entry : sortedMap.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            key = key.replace("%", "%25").replace("&", "%26").replace("=", "%3D");
+            value = value.replace("%", "%25").replace("&", "%26");
+            sb.append(key).append("=").append(value).append("&");
+        }
+        String reqString = sb.toString();
+        // removing the extra '&' character from the end
+        if (reqString.endsWith("&")) {
+            reqString = reqString.substring(0, reqString.length() - 1);
+        }
+        log(reqString);
+        // Now hashing with sha256 algorithem
+        String algorithm = "HmacSHA256";
+        Mac mac = Mac.getInstance(algorithm);
+        mac.init(new SecretKeySpec(secret.getBytes(), algorithm));
+        byte[] digest = mac.doFinal(reqString.getBytes());
+        log("Generated Hash: " + Hex.encodeHexString(digest));
+        log("Original Hash: " + hmac);
+        return hmac.equals(Hex.encodeHexString(digest).toString());
+    }
 }
