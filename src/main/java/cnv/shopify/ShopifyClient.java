@@ -8,7 +8,6 @@ import cnv.shopify.modal.ShopifyCredentials;
 import cnv.shopify.service.*;
 import com.google.gson.Gson;
 import java.security.InvalidKeyException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
@@ -129,7 +128,8 @@ public class ShopifyClient {
      *
      * https://docs.shopify.com/api/authentication/oauth
      */
-    public static boolean isValidRequest(Map<String, String> map, String secret) throws NoSuchAlgorithmException, InvalidKeyException {
+    public static boolean isValidRequest(Map<String, String> map, String secret) {
+        boolean flag = false;
         SortedMap<String, String> sortedMap;
 
         if (map instanceof SortedMap) {
@@ -159,12 +159,18 @@ public class ShopifyClient {
         }
         log(reqString);
         // Now hashing with sha256 algorithem
-        String algorithm = "HmacSHA256";
-        Mac mac = Mac.getInstance(algorithm);
-        mac.init(new SecretKeySpec(secret.getBytes(), algorithm));
-        byte[] digest = mac.doFinal(reqString.getBytes());
-        log("Generated Hash: " + Hex.encodeHexString(digest));
-        log("Original Hash: " + hmac);
-        return hmac.equals(Hex.encodeHexString(digest).toString());
+        try {
+            String algorithm = "HmacSHA256";
+            Mac mac = Mac.getInstance(algorithm);
+            mac.init(new SecretKeySpec(secret.getBytes(), algorithm));
+            byte[] digest = mac.doFinal(reqString.getBytes());
+            log("Generated Hash: " + Hex.encodeHexString(digest));
+            log("Original Hash: " + hmac);
+            flag = hmac.equals(Hex.encodeHexString(digest).toString());
+        } catch (Exception e) {
+            log("Error while checking the request validation:" + e);
+            e.printStackTrace(System.out);
+        }
+        return flag;
     }
 }
