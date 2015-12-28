@@ -4,6 +4,7 @@
  */
 package cnv.shopify;
 
+import cnv.shopify.modal.Order;
 import cnv.shopify.modal.ShopifyBaseModal;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -22,6 +23,11 @@ public class ShopifyUtil {
 
     public static <T extends ShopifyBaseModal> String getFieldsAsCsv(Class<T> cls) {
         StringBuilder csv = new StringBuilder();
+        System.out.println(cls);
+        if (cls == ShopifyBaseModal.class) {
+        } else {
+            csv.append(getFieldsAsCsv((Class<ShopifyBaseModal>) cls.getSuperclass()));
+        }
         Field[] fields = cls.getDeclaredFields();
         for (Field field : fields) {
             if (field.isAnnotationPresent(SerializedName.class)) {
@@ -29,8 +35,11 @@ public class ShopifyUtil {
                 //System.out.println(field.getType().isAssignableFrom(ShopifyBaseModal.class));
                 csv.append(name.value()).append(",");
             }
-
         }
         return csv.toString();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getFieldsAsCsv(Order.class));
     }
 }
