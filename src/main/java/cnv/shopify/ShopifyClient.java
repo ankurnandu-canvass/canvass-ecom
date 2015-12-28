@@ -7,8 +7,6 @@ package cnv.shopify;
 import cnv.shopify.modal.ShopifyCredentials;
 import cnv.shopify.service.*;
 import com.google.gson.Gson;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
