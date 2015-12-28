@@ -5,6 +5,7 @@
 package cnv.shopify.service;
 
 import cnv.shopify.ShopifyResponseParser;
+import cnv.shopify.ShopifyUtil;
 import cnv.shopify.modal.Customer;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
@@ -38,6 +39,7 @@ public class CustomerService extends ShopifyBaseService {
         HttpUriRequest build = RequestBuilder.get().setUri(client.getBaseUrl() + path).
                 addParameter("page", "" + page).
                 addParameter("limit", "" + limit).
+                addParameter("fields", ShopifyUtil.getFieldsAsCsv(Customer.class)).
                 build();
         Type type = new TypeToken<HashMap<String, List<Customer>>>() {
         }.getType();

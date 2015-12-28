@@ -22,7 +22,8 @@ public class AssetService extends ShopifyBaseService {
     public Asset loadAsset(long themeId, String assetName) throws Exception {
         String path = "/admin/themes/" + themeId + "/assets.json";
         HttpUriRequest build = RequestBuilder.get().setUri(baseUrl + path).
-                addParameter("asset[key]", assetName).build();
+                addParameter("asset[key]", assetName).                
+                build();
         Asset.AssetWraper aw = ShopifyResponseParser.parser().parse(execute(build), Asset.AssetWraper.class);
         return aw != null ? aw.getAsset() : null;
     }

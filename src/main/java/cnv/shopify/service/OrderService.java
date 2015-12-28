@@ -5,10 +5,10 @@
 package cnv.shopify.service;
 
 import cnv.shopify.ShopifyResponseParser;
+import cnv.shopify.ShopifyUtil;
 import cnv.shopify.modal.Order;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -32,7 +32,8 @@ public class OrderService extends ShopifyBaseService {
                 orderIdsString.append(orderIds.get(i));
             }
             RequestBuilder builder = RequestBuilder.get().setUri(client.getBaseUrl() + path).
-                    addParameter("ids", orderIdsString.toString());
+                    addParameter("ids", orderIdsString.toString()).
+                    addParameter("fields", ShopifyUtil.getFieldsAsCsv(Order.class));
             HttpUriRequest build = builder.build();
             Type type = new TypeToken<HashMap<String, List<Order>>>() {
             }.getType();

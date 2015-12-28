@@ -14,6 +14,7 @@ import java.util.List;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.entity.StringEntity;
+
 /**
  *
  * @author Naga Srinivas @Canvass
@@ -23,6 +24,7 @@ public class WebhookService extends ShopifyBaseService {
     public List<Webhook> getWebhooks() throws Exception {
         String path = "/admin/webhooks.json";
         HttpUriRequest build = RequestBuilder.get().setUri(baseUrl + path).
+                addParameter("fields", ShopifyUtil.getFieldsAsCsv(Webhook.class)).
                 build();
         Type type = new TypeToken<HashMap<String, List<Webhook>>>() {
         }.getType();
