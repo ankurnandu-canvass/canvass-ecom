@@ -22,8 +22,7 @@ public class ShopifyUtil {
     }
 
     public static <T extends ShopifyBaseModal> String getFieldsAsCsv(Class<T> cls) {
-        StringBuilder csv = new StringBuilder();
-        System.out.println(cls);
+        StringBuilder csv = new StringBuilder();        
         if (cls == ShopifyBaseModal.class) {
         } else {
             csv.append(getFieldsAsCsv((Class<ShopifyBaseModal>) cls.getSuperclass()));

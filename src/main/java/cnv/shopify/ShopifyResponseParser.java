@@ -5,10 +5,7 @@
 package cnv.shopify;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.lang.reflect.Type;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 /**
  *
@@ -23,13 +20,23 @@ public class ShopifyResponseParser {
         gson = ShopifyUtil.getGson();
     }
 
-    public <T> T parse(String json, Class<T> cls) throws Exception {
-        T obj = gson.fromJson(json, cls);
+    public <T> T parse(String json, Class<T> cls) {
+        T obj = null;
+        try {
+            obj = gson.fromJson(json, cls);
+        } catch (Exception e) {
+            System.out.println("Error while parsing the Shopify Reponse: " + e);
+        }
         return obj;
     }
 
-    public <T> T parse(String json, Type type) throws Exception {
-        T obj = gson.fromJson(json, type);
+    public <T> T parse(String json, Type type) {
+        T obj = null;
+        try {
+            obj = gson.fromJson(json, type);
+        } catch (Exception e) {
+            System.out.println("Error while parsing the Shopify Reponse: " + e);
+        }
         return obj;
     }
 

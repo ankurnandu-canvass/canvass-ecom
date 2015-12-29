@@ -23,10 +23,12 @@ public class ThemeService extends ShopifyBaseService {
     public Theme getMainTheme() throws IOException, Exception {
         Theme mainTheme = null;
         List<Theme> themes = getThemes();
-        for (Theme theme : themes) {
-            if (theme.isMain()) {
-                mainTheme = theme;
-                break;
+        if (themes != null) {
+            for (Theme theme : themes) {
+                if (theme.isMain()) {
+                    mainTheme = theme;
+                    break;
+                }
             }
         }
         return mainTheme;
