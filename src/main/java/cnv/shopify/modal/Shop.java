@@ -32,6 +32,16 @@ public class Shop extends ShopifyBaseModal {
     private String contactEmail;
     @SerializedName("zip")
     private String zip;
+    @SerializedName("domain")
+    private String domain;
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
 
     public String getAddress1() {
         return address1;
