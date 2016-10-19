@@ -59,6 +59,7 @@ public class ShopifyBaseService {
                 System.out.println(buff.toString());
             }
         } catch (Exception e) {
+            e.printStackTrace(System.out);
         } finally {
             httpClient.close();
         }

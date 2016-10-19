@@ -34,6 +34,8 @@ public class Shop extends ShopifyBaseModal {
     private String zip;
     @SerializedName("domain")
     private String domain;
+    @SerializedName("plan_name")
+    private String planName;
 
     public String getDomain() {
         return domain;

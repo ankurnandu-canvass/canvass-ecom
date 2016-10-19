@@ -5,7 +5,7 @@
 
     <groupId>canvass</groupId>
     <artifactId>shopify-j</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>shopify-j</name>
@@ -14,7 +14,7 @@
 
     <properties>
         <!-- github server corresponds to entry in ~/.m2/settings.xml -->
-    <github.global.server>canvass</github.global.server>
+        <github.global.server>canvass</github.global.server>        
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>        
         <apache.httpcomponents.version>4.3.2</apache.httpcomponents.version>    
     </properties>
@@ -61,10 +61,10 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.0</version>
+                <version>3.5.1</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>

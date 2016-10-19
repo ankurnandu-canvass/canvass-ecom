@@ -6,7 +6,6 @@ package cnv.shopify.service;
 
 import cnv.shopify.ShopifyResponseParser;
 import cnv.shopify.ShopifyUtil;
-import cnv.shopify.modal.Customer;
 import cnv.shopify.modal.Product;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;

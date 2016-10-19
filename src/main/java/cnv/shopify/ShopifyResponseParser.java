@@ -32,7 +32,7 @@ public class ShopifyResponseParser {
 
     public <T> T parse(String json, Type type) {
         T obj = null;
-        try {
+        try {            
             obj = gson.fromJson(json, type);
         } catch (Exception e) {
             System.out.println("Error while parsing the Shopify Reponse: " + e);
