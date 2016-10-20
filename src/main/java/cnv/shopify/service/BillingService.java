@@ -41,12 +41,16 @@ public class BillingService extends ShopifyBaseService {
         return wrapper.getCharge();
     }
 
-    public Map getRecurringCharge(long id) throws Exception {
+    public RecurringChargeResponse getRecurringCharge(long id) throws Exception {
         String path = "/admin/recurring_application_charges/" + id + ".json";
         HttpUriRequest build = RequestBuilder.get().setUri(baseUrl + path).
                 build();
-        HashMap map = ShopifyResponseParser.parser().parse(execute(build), HashMap.class);
-        return map;
+        RecurringCharge.Wrapper wrapper = ShopifyResponseParser.parser().parse(execute(build), RecurringCharge.Wrapper.class);
+        if (wrapper.hasErrors()) {
+            System.out.println("Error occured while activating the Shopify recurring charge: " + wrapper.getErrors());
+            return null;
+        }
+        return wrapper.getCharge();
     }
 
     public List<RecurringChargeResponse> getAllRecurringCharges(long sinceId) throws Exception {

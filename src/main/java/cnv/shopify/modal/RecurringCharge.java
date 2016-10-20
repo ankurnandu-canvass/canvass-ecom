@@ -44,6 +44,9 @@ public class RecurringCharge extends ShopifyBaseModal {
     @SerializedName("test")
     public boolean test;
 
+    public RecurringCharge() {
+    }
+
     public float getCappedAmount() {
         return cappedAmount;
     }

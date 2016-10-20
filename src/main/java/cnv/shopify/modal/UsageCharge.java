@@ -16,8 +16,6 @@ public class UsageCharge extends ShopifyBaseModal {
 
     @SerializedName("description")
     private String description;
-    @SerializedName("recurring_application_charge_id")
-    private float recurring_application_charge_id;
     @SerializedName("created_at")
     private Date createdAt;
     @SerializedName("updated_at")
@@ -89,14 +87,6 @@ public class UsageCharge extends ShopifyBaseModal {
         this.description = description;
     }
 
-    public float getRecurring_application_charge_id() {
-        return recurring_application_charge_id;
-    }
-
-    public void setRecurring_application_charge_id(float recurring_application_charge_id) {
-        this.recurring_application_charge_id = recurring_application_charge_id;
-    }
-
     public Float getRiskLevel() {
         return riskLevel;
     }
@@ -115,7 +105,7 @@ public class UsageCharge extends ShopifyBaseModal {
 
     @Override
     public String toString() {
-        return "UsageCharge{" + "description=" + description + ", recurring_application_charge_id=" + recurring_application_charge_id + ", billingOn=" + billingOn + ", balanceUsed=" + balanceUsed + ", balanceRemaining=" + balanceRemaining + '}';
+        return "UsageCharge{" + "description=" + description + ", billingOn=" + billingOn + ", balanceUsed=" + balanceUsed + ", balanceRemaining=" + balanceRemaining + '}';
     }
 
     public static class Wrapper extends ShopifyWrapper {
